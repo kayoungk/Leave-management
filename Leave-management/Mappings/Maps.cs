@@ -12,8 +12,7 @@ namespace Leave_management.Mappings
     {
         public Maps() {
             // ReverseMap is two way binding
-            CreateMap<LeaveType, DetailsLeaveTypeVM>().ReverseMap();
-            CreateMap<LeaveType, CreateLeaveTypeVM>().ReverseMap();
+            CreateMap<LeaveType, LeaveTypeVM>().ReverseMap();
             CreateMap<LeaveHistory, LeaveHistoryVM>().ReverseMap();
             CreateMap<LeaveAllocation, LeaveAllocationVM>().ReverseMap();
             CreateMap<Employee, EmployeeVM>().ReverseMap();
