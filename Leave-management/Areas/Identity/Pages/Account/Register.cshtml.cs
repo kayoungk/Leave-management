@@ -92,6 +92,9 @@ namespace Leave_management.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    //Register as a regular user by default.
+                    _userManager.AddToRoleAsync(user, "Employee").Wait();
+
                     _logger.LogInformation("User created a new account with password.");
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
