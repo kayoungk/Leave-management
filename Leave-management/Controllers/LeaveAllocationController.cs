@@ -80,9 +80,16 @@ namespace Leave_management.Controllers
         }
 
         // GET: LeaveAllocation/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var employee = _mapper.Map<EmployeeVM>(_userManager.FindByIdAsync(id).Result);
+            var allocations = _mapper.Map<List<LeaveAllocationVM>>(_leaveallocationrepo.GetLeaveAllocationsByEmployee(id));
+            var model = new ViewAllocationVM
+            {
+                Employee = employee,
+                LeaveAllocations = allocations
+            };
+            return View(model);
         }
 
         // GET: LeaveAllocation/Create
@@ -111,19 +118,31 @@ namespace Leave_management.Controllers
         // GET: LeaveAllocation/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var leaveallocation = _leaveallocationrepo.FindById(id);
+            var model = _mapper.Map<EditLeaveAllocationVM>(leaveallocation);
+            return View(model);
         }
 
         // POST: LeaveAllocation/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(EditLeaveAllocationVM model)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var record = _leaveallocationrepo.FindById(model.Id);
+                record.NumberOfDays = model.NumberOfDays;
+                var isSuccess = _leaveallocationrepo.Update(record);
+                if (!isSuccess)
+                {
+                    ModelState.AddModelError("", "Error while saving");
+                    return View(model);
+                }
+                return RedirectToAction(nameof(Details), new {id = model.EmployeeId });
             }
             catch
             {
