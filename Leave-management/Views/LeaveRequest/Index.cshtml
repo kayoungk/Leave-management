@@ -10,6 +10,47 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body text-center">
+                <h1 class="card-title">@Model.TotalRequest</h1>
+                <h5 class="card-text">@Html.DisplayNameFor(model => model.TotalRequest)</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body text-center">
+                <h1 class="card-title text-warning">@Model.PendingRequest</h1>
+                <h5 class="card-text">@Html.DisplayNameFor(model => model.PendingRequest)</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body text-center">
+                <h1 class="card-title text-success">@Model.ApprovedRequest</h1>
+                <h5 class="card-text">@Html.DisplayNameFor(model => model.ApprovedRequest)</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body text-center">
+                <h1 class="card-title text-danger">@Model.RejectedRequest</h1>
+                <h5 class="card-text">@Html.DisplayNameFor(model => model.RejectedRequest)</h5>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />
+<br />
+<hr />
+<h1>Leave Request Log</h1>
+
 <table id="tblData" class="table">
     <thead>
         <tr>
