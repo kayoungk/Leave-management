@@ -46,6 +46,11 @@ namespace Leave_management.Repository
                 .FirstOrDefault(q => q.Id == id);
         }
 
+        public ICollection<LeaveRequest> GetLeaveRequestsByEmployee(string employeeId)
+        {
+            return FindAll().Where(q => q.RequestingEmployeeId == employeeId).ToList();
+        }
+
         public bool isExists(int id)
         {
             var exists = _db.LeaveRequests.Any(q => q.Id == id);
